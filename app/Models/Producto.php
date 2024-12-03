@@ -17,7 +17,7 @@ class Producto extends Model
         'nombre',
         'precio',
         'fecha_de_publicacion',
-        //'imagen',
+        'producto_tipo',
         'editoriale_id',
     ];
     public function editorial()
@@ -37,5 +37,29 @@ class Producto extends Model
     public function generos()
     {
         return $this->belongsToMany(Genero::class, 'producto_genero', 'producto_codigo', 'genero_id');
+    }
+    public function revistas()
+    {
+        return $this->hasOne(Revista::class, 'producto_codigo','codigo');
+    }
+    public function enciclopedia()
+    {
+        return $this->hasOne(Enciclopedia::class, 'producto_codigo','codigo');
+    }
+    public function venta_Producto(){
+        return $this->hasOne(Venta_Producto::class);
+    }
+    public function compras(){
+        return $this->belongsToMany(Compra::class, 'producto_compra','producto_codigo','compra_nro')
+        ->withPivot('cantidad', 'precio_unitario'); // Especifica los campos de la tabla pivote         
+    }
+    public function promocion_detalle(){
+        return $this->belongsToMany(Promocion_detalles::class,'promocion_detalle_producto', 'producto_codigo', 'codigo')
+        ->withPivot('porcentaje', 'cantidad');
+;
+    }
+    public function intercambios(){
+        return $this->belongsToMany(Intercambios::class, 'intercambio_producto','producto_codigo', 'intercambio_nro')
+        ->withPivot('cantidad');;
     }
 }

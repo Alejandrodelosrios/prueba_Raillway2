@@ -17,6 +17,7 @@ class Stock extends Model
         'cantidad',
         'max_stock',
         'min_stock',
+        'cantidad_defectuosa'
     ];
     public function productos()
     {

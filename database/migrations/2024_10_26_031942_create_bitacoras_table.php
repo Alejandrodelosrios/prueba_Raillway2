@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bitacoras', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement(); // Identificador único de la bitácora.
             
-            $table->string('tabla_afectada', 20); // Nombre de la tabla afectada.
+            $table->string('tabla_afectada', 30); // Nombre de la tabla afectada.
             
             $table->unsignedTinyInteger('accione_id'); // Tipo de operación realizada (INSERT, UPDATE, DELETE).
             

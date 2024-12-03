@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promociones_productos', function (Blueprint $table) {
+        Schema::create('promocion_detalles', function (Blueprint $table) {
             $table->unsignedSmallInteger('id')->autoIncrement(); // Identificador de la promoción
             
             $table->string('nombre', 50); // Nombre de la promoción
@@ -20,7 +20,7 @@ return new class extends Migration
             
             $table->date('fecha_inicio'); // Fecha de inicio de la promoción
             
-            $table->date('fecha_final'); // Fecha de finalización de la promoción
+            $table->date('fecha_final')->nullable(); // Fecha de finalización de la promoción
             
             $table->unsignedTinyInteger('promocione_id'); // Número de la promoción que se está haciendo
             
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('promociones_productos');
+        Schema::dropIfExists('promocion_detalles');
     }
 };

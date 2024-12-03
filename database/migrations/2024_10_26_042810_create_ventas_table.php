@@ -16,9 +16,6 @@ return new class extends Migration
             
             $table->decimal('monto_total', 8, 2)->unsigned(); // Precio total de la venta realizada
             
-            $table->unsignedInteger('factura_nro'); // Número de factura
-
-            $table->foreign('factura_nro')->references('nro')->on('facturas');
         });
     }
 

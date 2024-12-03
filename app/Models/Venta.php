@@ -8,5 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Venta extends Model
 {
     protected $table = 'ventas';
+    protected $primaryKey = 'nro';
+    public $timestamps = false;
     use HasFactory;
+    protected $fillable = [
+        'nro',
+        'monto_total',
+    ];
+    public function factura()
+    {
+        return $this->hasOne(Factura::class,'venta_nro','nro');
+    }
+    public function venta_Producto()
+    {
+        return $this->hasOne(Venta_Producto::class);
+    }
 }

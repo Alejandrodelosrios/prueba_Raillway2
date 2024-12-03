@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('intercambios', function (Blueprint $table) {
             $table->unsignedSmallInteger('nro')->autoIncrement(); // Número de Intercambio
             
-            $table->smallInteger('cantidad'); // Cantidad de productos intercambiados
-            
             $table->dateTime('fecha'); // Fecha de Intercambio
                         
             $table->string('motivo', 500); // Motivo del intercambio

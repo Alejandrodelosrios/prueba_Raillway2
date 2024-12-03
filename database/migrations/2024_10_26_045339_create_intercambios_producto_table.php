@@ -15,6 +15,8 @@ return new class extends Migration
             $table->unsignedSmallInteger('intercambio_nro'); // Número de Intercambio
             
             $table->string('producto_codigo', 8); // Código del producto de intercambio
+
+            $table->smallInteger('cantidad'); // Cantidad de productos intercambiados
             
             $table->primary(['intercambio_nro', 'producto_codigo']); // Clave primaria compuesta
             

@@ -53,4 +53,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Bitacora::class, 'user_id');
     }
+    public function factura(){
+        return $this->hasMany(Factura::class);
+    }
+    public function compras()
+    {
+     return $this->hasMany(Compra::class, 'user_id');
+    }
+    public function intercambio(){
+        return $this->hasMany(Intercambios::class, 'user_id');
+    }
 }

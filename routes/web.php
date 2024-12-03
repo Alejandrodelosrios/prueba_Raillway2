@@ -4,7 +4,6 @@ use App\Http\Controllers\Transacciones\Compras\ComprasController;
 use App\Http\Controllers\Transacciones\Pagos\FacturaController;
 use App\Http\Controllers\Usuarios\Privilegios\PrivilegioController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Promociones\PromocionController;
 use App\Http\Controllers\Transacciones\Proveedores\ProveedoresController;
 use App\Http\Controllers\Transacciones\Pagos\ReporteController;
 use App\Http\Controllers\UsuariosController;
@@ -19,8 +18,9 @@ use App\Http\Controllers\Usuarios\Clientes\ClienteController;
 use App\Http\Controllers\Usuarios\Empleados\EmpleadoController;
 use App\Http\Controllers\Inventario\Productos\ProductoController;
 use App\Http\Controllers\Inventario\Productos\StockController;
+use App\Http\Controllers\Promociones\Promociones_detallesController;
+use App\Http\Controllers\Transacciones\Intercambio\IntercambioController;
 use App\Http\Controllers\Usuarios\Roles\RoleController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -68,15 +68,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/categoria', [GeneroController::class, 'index'])->name('genero.index');
 
-    Route::get('/promocion', [PromocionController::class, 'index'])->name('promocion_producto.index');
+    Route::get('/promocion', [Promociones_detallesController::class, 'index'])->name('promocion_producto.index');
 
     Route::get('/proveedor', [ProveedoresController::class, 'index'])->name('proveedor.index');
 
-    Route::get('/venta', [VentasController::class, 'index'])->name('venta.index');
+    //Route::get('/venta', [VentasController::class, 'index'])->name('venta.index');
 
     Route::get('/compra', [ComprasController::class, 'index'])->name('compra.index');
 
-    Route::get('/factura', [FacturaController::class, 'index'])->name('factura.index');
+    //Route::get('/factura', [FacturaController::class, 'index'])->name('factura.index');
 
     Route::get('/reporte', [ReporteController::class, 'index'])->name('ganancia_diaria.index');
 });
@@ -196,6 +196,124 @@ Route::put('/stock/{stock}', [StockController::class, 'update'])
 Route::delete('/stock/{stock}',[StockController::class,'destroy'])
        ->name('stock.delete');
 
+
+//Proveedores
+Route::get('/proveedor/create',[ProveedoresController::class,'create'])
+       ->name('proveedor.create');
+
+Route::post('/proveedor/store',[ProveedoresController::class,'store'])
+       ->name('proveedor.store');
+
+//Rutas para editar lleva aun formulario
+Route::get('/proveedor/{codigo}',[ProveedoresController::class,'edit'])
+       ->name('proveedor.edit');
+       
+// ruta para editar actualiza los datos 
+Route::put('/proveedor/{codigo}', [ProveedoresController::class, 'update'])
+       ->name('proveedor.update');
+
+//Ruta para eliminar 
+Route::delete('/proveedor/{codigo}',[ProveedoresController::class,'destroy'])
+       ->name('proveedor.delete');
+
+//genero
+// Genero
+Route::get('/genero', [GeneroController::class, 'index'])
+       ->name('genero.index');
+Route::get('/genero/create',[GeneroController::class,'create'])
+       ->name('genero.create');
+
+Route::post('/genero/store',[GeneroController::class,'store'])
+       ->name('genero.store');
+
+//Rutas para editar lleva aun formulario
+Route::get('/genero/edit/{codigo}',[GeneroController::class,'edit'])
+       ->name('genero.edit');
+       
+// ruta para editar actualiza los datos 
+Route::put('/genero/{codigo}', [GeneroController::class, 'update'])
+       ->name('genero.update');
+
+//Ruta para eliminar 
+Route::delete('/genero/{codigo}',[GeneroController::class,'destroy'])
+       ->name('genero.delete');
+
+//Ventas
+Route::get('/venta/create',[VentasController::class,'create'])
+       ->name('venta.create');
+
+Route::post('/venta/store',[VentasController::class,'store'])
+       ->name('venta.store');
+//Ruta para mostrar
+Route::get('/producto/{codigo}', [ProductoController::class, 'show'])
+       ->name('producto.show');  
+
+Route::get('/facturas', [FacturaController::class, 'index'])->name('facturas.index'); // Listado de facturas
+Route::post('/facturas', [FacturaController::class, 'store'])->name('facturas.store'); // Guardar una nueva factura
+Route::get('/facturas/{id}/pdf', [FacturaController::class, 'generatePDF'])->name('facturas.pdf'); // Generar PDF de la factura
+
+//RUTAS DE COMPRAS
+Route::get('/compra/create',[ComprasController::class,'create'])
+       ->name('compra.create');
+
+Route::post('/compra/store',[ComprasController::class,'store'])
+       ->name('compra.store');
+
+//Rutas para editar lleva aun formulario
+Route::get('/compra/edit/{codigo}',[ComprasController::class,'edit'])
+       ->name('compra.edit');
+       
+// ruta para editar actualiza los datos 
+Route::put('/compra/{codigo}', [ComprasController::class, 'update'])
+       ->name('compra.update');
+
+//Ruta para eliminar 
+Route::delete('/compra/{codigo}',[ComprasController::class,'destroy'])
+       ->name('compra.delete');
+
+Route::get('/compra/reporte',[ComprasController::class,'PDFall'])
+       ->name('compra.reporte');
+
+Route::get('/compra/pdf/{nro}',[ComprasController::class,'pdf'])
+       ->name('pdf.compra');
+
+//RUTAS DE COMPRAS
+Route::get('/promocion/create',[Promociones_detallesController::class,'create'])
+       ->name('promocion.create');
+
+Route::post('/promocion/store',[Promociones_detallesController::class,'store'])
+       ->name('promocion.store');
+
+//Rutas para editar lleva aun formulario
+Route::get('/promocion/edit/{id}',[Promociones_detallesController::class,'edit'])
+       ->name('promocion.edit');
+       
+// ruta para editar actualiza los datos 
+Route::put('/promocion/{id}', [Promociones_detallesController::class, 'update'])
+       ->name('promocion.update');
+
+//Ruta para eliminar 
+Route::delete('/promocion/{id}',[Promociones_detallesController::class,'destroy'])
+       ->name('promocion.delete');
+
+//Ruta para mostrar
+Route::get('/promocion/{id}', [Promociones_detallesController::class,'show'])
+       ->name('promocion.show');  
+
+//RUTAS DE intercambios
+
+Route::get('/intercambios', [IntercambioController::class, 'index'])
+  ->name('intercambio.index'); // Listado de intercambios
+
+Route::get('/intercambios/create',[IntercambioController::class,'create'])
+       ->name('intercambio.create');
+
+Route::post('/intercambios/store',[IntercambioController::class,'store'])
+       ->name('intercambio.store');
+
+//Ruta para mostrar
+Route::get('/intercambio/{nro}', [IntercambioController::class,'show'])
+       ->name('intercambio.show');  
 
 
 require __DIR__.'/auth.php';

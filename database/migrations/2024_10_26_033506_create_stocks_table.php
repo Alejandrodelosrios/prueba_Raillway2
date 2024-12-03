@@ -20,6 +20,8 @@ return new class extends Migration
            
             $table->unsignedTinyInteger('min_stock'); // Mínima cantidad permitida en stock
             
+            $table->unsignedTinyInteger('cantidad_defectuosa'); //cantidad de productos defectuoso 
+
             $table->foreign('producto_codigo')->references('codigo')->on('productos')
                   ->onUpdate('cascade')
                   ->onDelete('cascade'); // Llave foránea a la tabla producto

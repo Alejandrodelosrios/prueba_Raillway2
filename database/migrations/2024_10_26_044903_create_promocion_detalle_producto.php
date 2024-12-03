@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promocion_descuento', function (Blueprint $table) {
+        Schema::create('promocion_detalle_producto', function (Blueprint $table) {
             $table->string('producto_codigo', 8); // Identificación del producto
 
-            $table->unsignedSmallInteger('promociones_producto_id'); // Identificador de la promoción
+            $table->unsignedSmallInteger('promocion_detalle_id'); // Identificador de la promoción
 
-            $table->decimal('descuento', 8, 2)->unsigned(); // Descuento del producto
+            $table->decimal('porcentaje', 8, 2)->unsigned(); // Descuento del producto
+
+            $table->unsignedSmallInteger('cantidad')->nullable();
             
-            $table->primary(['producto_codigo', 'promociones_producto_id']);
+            $table->primary(['producto_codigo', 'promocion_detalle_id']);
             
-            $table->foreign('promociones_producto_id')->references('id')->on('promociones_productos');
+            $table->foreign('promocion_detalle_id')->references('id')->on('promocion_detalles');
             
             $table->foreign('producto_codigo')->references('codigo')->on('productos');
         });
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('promocion_descuento');
+        Schema::dropIfExists('promocion_detalle_producto');
     }
 };
